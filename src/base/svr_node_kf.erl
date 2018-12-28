@@ -91,6 +91,7 @@ handle_call(_R, _FROM, State) ->
 
 % 游戏节点接入跨服中心
 handle_cast({'cli_conn', [ServerId, NodeName, Cookie, Ip, Port, SvrName]}, State) ->
+    ?INFO("svr_node_kf cli_conn."),
     SvrInfo = #svr_info{
         svr_id = ServerId, node = NodeName, cookie = Cookie,
         ip = Ip, port = Port, name = SvrName
@@ -102,6 +103,7 @@ handle_cast({'cli_conn', [ServerId, NodeName, Cookie, Ip, Port, SvrName]}, State
 
 % 游戏节点断开和跨服中心连接 TODO
 handle_cast({'cli_down', ServerId}, State) ->
+    ?INFO("svr_node_kf cli_down."),
     ets:delete(?ETS_SVR_INFO, ServerId),
     bcast_cli_down(ServerId),
     {noreply, State};

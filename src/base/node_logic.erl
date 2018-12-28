@@ -28,7 +28,14 @@ start([NodeId]) ->
 start(_) ->
     ok.
 
-start_services(_IPStr, _Port, _NodeID) ->
+start_services(IPStr, Port, NodeID) ->
+    ?INFO("start_services, ~s,~w,~w~n", [IPStr, Port, NodeID]),
+    {ok, _} = supervisor:start_child(?SUP,
+        {svr_logic, {svr_logic, start_link, [NodeID]},
+            permanent, 10000, worker, [svr_logic]}),
+    {ok, _} = supervisor:start_child(?SUP,
+        {svr_node, {svr_node, start_link, [[IPStr, Port, NodeID]]},
+            permanent, 10000, worker, [svr_node]}),
     ok.
 
 %% @doc

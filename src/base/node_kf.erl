@@ -36,38 +36,38 @@ start_services(IpStr, Port, NodeId) ->
     {ok, _} = supervisor:start_child(?SUP,
         {svr_node_kf, {svr_node_kf, start_link, [[IpStr, Port, NodeId]]},
             permanent, 10000, supervisor, [svr_node_kf]}),
-    {ok, _} = supervisor:start_child(?SUP,
-        {sup_scene, {sup_scene, start_link, [NodeId]},
-            permanent, 10000, supervisor, [sup_scene]}),
-    {ok, _} = supervisor:start_child(?SUP,
-        {sup_timer, {sup_timer, start_link, [NodeId]},
-            permanent, 10000, supervisor, [sup_timer]}),
+%%    {ok, _} = supervisor:start_child(?SUP,
+%%        {sup_scene, {sup_scene, start_link, [NodeId]},
+%%            permanent, 10000, supervisor, [sup_scene]}),
+%%    {ok, _} = supervisor:start_child(?SUP,
+%%        {sup_timer, {sup_timer, start_link, [NodeId]},
+%%            permanent, 10000, supervisor, [sup_timer]}),
     % 根据节点类型开启场景
-    if
-        NodeId =:= ?NODE_ID_KFCENTER -> %% 100
-            {ok, _} = supervisor:start_child(?SUP,
-                {svr_hot_agent, {svr_hot_agent, start_link, []},
-                    permanent, 10000, worker, [svr_hot_agent]}),
-            {ok, _} = supervisor:start_child(?SUP,
-                {svr_group, {svr_group, start_link, []},
-                    permanent, 10000, worker, [svr_group]}),
-            % TODO
-            % {ok, _} = supervisor:start_child(?SUP,
-            %     {sup_world_boss, {sup_world_boss, start_link, [NodeId]},
-            %         permanent, 10000, supervisor, [sup_world_boss]}),
-            {ok, _} = supervisor:start_child(?SUP,
-                {sup_activity, {sup_activity, start_link, [NodeId, ?SERVER_TYPE_CENTER]},
-                    permanent, 10000, supervisor, [sup_activity]}),
-            ok;
-        true ->
-            {ok, _} = supervisor:start_child(?SUP,
-                {svr_group_agent, {svr_group_agent, start_link, []},
-                    permanent, 10000, worker, [svr_group_agent]}),
-            {ok, _} = supervisor:start_child(?SUP,
-                {sup_activity, {sup_activity, start_link, [NodeId, ?SERVER_TYPE_CLUSTER]},
-                    permanent, 10000, supervisor, [sup_activity]}),
-            ok
-    end,
+%%    if
+%%        NodeId =:= ?NODE_ID_KFCENTER -> %% 100
+%%            {ok, _} = supervisor:start_child(?SUP,
+%%                {svr_hot_agent, {svr_hot_agent, start_link, []},
+%%                    permanent, 10000, worker, [svr_hot_agent]}),
+%%            {ok, _} = supervisor:start_child(?SUP,
+%%                {svr_group, {svr_group, start_link, []},
+%%                    permanent, 10000, worker, [svr_group]}),
+%%            % TODO
+%%            % {ok, _} = supervisor:start_child(?SUP,
+%%            %     {sup_world_boss, {sup_world_boss, start_link, [NodeId]},
+%%            %         permanent, 10000, supervisor, [sup_world_boss]}),
+%%            {ok, _} = supervisor:start_child(?SUP,
+%%                {sup_activity, {sup_activity, start_link, [NodeId, ?SERVER_TYPE_CENTER]},
+%%                    permanent, 10000, supervisor, [sup_activity]}),
+%%            ok;
+%%        true ->
+%%            {ok, _} = supervisor:start_child(?SUP,
+%%                {svr_group_agent, {svr_group_agent, start_link, []},
+%%                    permanent, 10000, worker, [svr_group_agent]}),
+%%            {ok, _} = supervisor:start_child(?SUP,
+%%                {sup_activity, {sup_activity, start_link, [NodeId, ?SERVER_TYPE_CLUSTER]},
+%%                    permanent, 10000, supervisor, [sup_activity]}),
+%%            ok
+%%    end,
     ok.
 
 set_game_env() ->

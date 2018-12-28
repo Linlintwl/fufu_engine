@@ -56,6 +56,9 @@ code_change(_OldVsn, State, _Extra) ->
 %% Privates ---------------------------------------------
 % @doc 初始ETS表 - 跨服中心节点
 init_ets(?NODE_ID_KFCENTER) ->
+    ets:new(?ETS_SERVER_STATE, ?ETS_KEYPOS_OPTIONS(#server_state.name)),                % 服务器信息
+    ets:new(?ETS_NODE, ?ETS_KEYPOS_OPTIONS(#node_info.id)),                             % 节点列表(100节点)
+    ets:new(?ETS_SVR_INFO, ?ETS_KEYPOS_OPTIONS(#svr_info.svr_id)),                      % 游戏服务器信息
 
     ok;
 % @doc 初始ETS表 - 跨服逻辑节点

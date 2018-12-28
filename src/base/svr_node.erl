@@ -41,6 +41,7 @@ add_cluster_node(NodeInfo) ->
 
 %% Callbacks --------------------------------------------
 init([IpStr, Port, NodeId]) ->
+    process_flag(trap_exit,true),
     NowTime = time:unixtime(),
     init_server_state(NodeId, NowTime),
 

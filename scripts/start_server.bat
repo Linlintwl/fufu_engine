@@ -9,3 +9,4 @@ DEL /F /S /Q %LOG_PATH%\*.log
 
 :: 启动游戏服务器
 FOR %%s IN (5) DO START /D%BAT_PATH% start_node.bat %%s 10
+FOR %%n IN (100) DO START /D%BAT_PATH% start_node.bat 0 %%n

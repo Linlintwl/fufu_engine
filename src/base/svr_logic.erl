@@ -58,5 +58,7 @@ code_change(_OldVsn, State, _Extra) ->
 %% Privates ------------------------------------------------------
 %% @doc 初始ETS表
 init_ets() ->
+    ets:new(?ETS_SERVER_STATE, ?ETS_KEYPOS_OPTIONS(#server_state.name)),                % 服务器信息
+    ets:new(?ETS_NODE, ?ETS_KEYPOS_OPTIONS(#node_info.id)),                             % 节点列表(100节点)
 
     ok.

@@ -6,9 +6,9 @@
     ],
     [
         {d, async_net},     % 异步网络逻辑
-        {d, app_ebin, "_build/default/lib/vtnemo/ebin/"}, % app ebin目录
+        % {d, app_ebin, "_build/default/lib/vtnemo/ebin/"}, % app ebin目录
         {i, "include"},
-        {outdir, "_build/default/lib/vtnemo/ebin"},
+        {outdir, "ebin"},
         deterministic,
         report,
         warn_export_all,
